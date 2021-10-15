@@ -64,6 +64,16 @@ namespace Lab04.Controllers
                 // deal the province code should be an uppercase string
                 province.ProvinceCode = province.ProvinceCode.ToUpper();
                 _context.Add(province);
+                // deal case if  the input code has existed
+                 var provinceCodeExisted = await _context.Provinces
+                .FirstOrDefaultAsync(m => m.ProvinceCode == province.ProvinceCode);
+                 if (provinceCodeExisted != null)
+                 {
+                
+                      return NotFound("This Province Code has existed!");
+              
+                  }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -142,6 +152,7 @@ namespace Lab04.Controllers
                 .FirstOrDefaultAsync(m => m.ProvinceCode == province.ProvinceCode);
              if (provinceAsFK != null)
             {
+                 //deal if this id has some records with as FK
                 return NotFound("Need to delete those cities with this province code first!");
               
             }
@@ -157,8 +168,7 @@ namespace Lab04.Controllers
         {
             var province = await _context.Provinces.FindAsync(id);
 
-            //deal if this id has some records with as FK
-
+           
             _context.Provinces.Remove(province);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
