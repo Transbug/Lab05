@@ -24,6 +24,7 @@ namespace Lab04.Models
 
    [ForeignKey("ProvinceCode")]
    public Province Province { get; set; }
+
  }  
 
 }

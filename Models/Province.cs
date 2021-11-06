@@ -6,7 +6,8 @@ using System;
 namespace Lab04.Models
 {
    public class Province {
-
+    
+     
     [Required]       
     [MaxLength (2)]
     [Display (Name = "Province code")]
@@ -18,5 +19,6 @@ namespace Lab04.Models
 	public string ProvinceName { get; set;}
 
     public List<City> Cities   { get; set; }
-}
+ 
+    }
 }
